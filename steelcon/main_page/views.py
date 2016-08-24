@@ -1,13 +1,15 @@
 from django.shortcuts import render
-
-# Create your views here.
 from django.http import HttpResponse
 from .models import Service, Items
-
+from django.template import loader
+# Create your views here.
 def index(request):
     show_services = Service.objects.order_by('-service_name')[:5]
-    output = ', '.join([q.service_name for q in show_services])
-    return HttpResponse(output)
+    template = loader.get_template('main_page/index.html')
+    context = {
+        'show_services': show_services,
+    }
+    return render(request, 'main_page/index.html', context)
 
 def service(request, service_name):
     return HttpResponse("You are looking at service name %s." % 
