@@ -1,0 +1,11 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'main_page/style.css' %}" />
+{% if show_services %}
+    <ul>
+    {% for service in show_services %}
+        <li><a href="{% url 'main_page:service' service.service_name %}">{{ service.service_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No services are available.</p>
+{% endif %}
